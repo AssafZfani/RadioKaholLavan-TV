@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_gradient"
+    android:layoutDirection="rtl"
+    android:paddingStart="50dp"
+    android:paddingEnd="50dp"
+    tools:ignore="ContentDescription">
+
+    <LinearLayout
+        android:id="@+id/llMainTabs"
+        android:layout_width="wrap_content"
+        android:layout_height="35dp"
+        android:layout_marginTop="50dp"
+        android:background="@drawable/bg_transparent"
+        android:descendantFocusability="beforeDescendants"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/mainTab1"
+            style="@style/MainTab"
+            android:nextFocusLeft="@id/mainTab2"
+            android:nextFocusDown="@+id/ivPlayOrPause"
+            android:tag="0"
+            android:text="@string/live_broadcast" />
+
+        <TextView
+            android:id="@+id/mainTab2"
+            style="@style/MainTab"
+            android:nextFocusLeft="@id/mainTab3"
+            android:nextFocusRight="@id/mainTab1"
+            android:nextFocusDown="@+id/lvSongList"
+            android:tag="1"
+            android:text="@string/last_played" />
+
+        <TextView
+            android:id="@+id/mainTab3"
+            style="@style/MainTab"
+            android:nextFocusRight="@id/mainTab2"
+            android:tag="2"
+            android:text="@string/broadcast_schedule">
+
+        </TextView>
+
+    </LinearLayout>
+
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/viewPager"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/ivLogo2"
+        app:layout_constraintStart_toEndOf="@id/ivLogo1"
+        app:layout_constraintTop_toBottomOf="@id/llMainTabs" />
+
+    <ImageView
+        android:id="@+id/ivLogo1"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:src="@drawable/logo"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/ivLogo2"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:src="@drawable/logo"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextClock
+        android:id="@+id/tvTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="35dp"
+        android:format12Hour="HH:mm"
+        android:format24Hour="HH:mm"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="@android:color/black"
+        android:textSize="33sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/tvDate"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextClock
+        android:id="@+id/tvDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:format12Hour="dd/MM/yyyy"
+        android:format24Hour="dd/MM/yyyy"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textColor="@android:color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvTime" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

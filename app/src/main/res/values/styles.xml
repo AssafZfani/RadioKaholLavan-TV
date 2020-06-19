@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="AppTheme" parent="@style/Theme.AppCompat.NoActionBar" />
+
+    <style name="MainTab" parent="@style/Base.TextAppearance.MaterialComponents.Button">
+
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">35dp</item>
+        <item name="android:background">@drawable/selector_round_bg</item>
+        <item name="android:focusable">true</item>
+        <item name="android:gravity">center</item>
+        <item name="android:padding">7.5dp</item>
+        <item name="android:textColor">@android:color/black</item>
+
+    </style>
+
+    <style name="DayTab" parent="MainTab">
+
+        <item name="android:layout_width">50dp</item>
+        <item name="android:background">@drawable/selector_circle_bg</item>
+        <item name="android:nextFocusUp">@id/mainTab3</item>
+        <item name="android:nextFocusDown">@id/lvBroadcastList</item>
+
+    </style>
+
+</resources>
