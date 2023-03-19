@@ -57,6 +57,12 @@ public class BroadcastScheduleFragment extends BaseFragment {
         return keyCode == KeyEvent.KEYCODE_DPAD_RIGHT || keyCode == KeyEvent.KEYCODE_DPAD_LEFT;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        App.setMediaPlayerStreamingUrl(getContext(), true);
+    }
+
     private void bindData(int position) {
         App.broadcasts.observe(getViewLifecycleOwner(), map -> {
             List<Broadcast> broadcastList = map.get(App.daysArray[position]);

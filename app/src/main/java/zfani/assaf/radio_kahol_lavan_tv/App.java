@@ -1,6 +1,7 @@
 package zfani.assaf.radio_kahol_lavan_tv;
 
 import android.app.Application;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.media.AudioManager;
@@ -11,6 +12,7 @@ import android.support.v4.media.session.MediaSessionCompat;
 import android.support.v4.media.session.PlaybackStateCompat;
 import android.view.KeyEvent;
 
+import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
 
 import com.google.android.exoplayer2.C;
@@ -23,7 +25,6 @@ import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
 import com.google.android.exoplayer2.util.Util;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -50,13 +51,19 @@ public class App extends Application {
         initBroadcasts();
     }
 
+    public static void setMediaPlayerStreamingUrl(Context context, boolean isMain) {
+        mediaPlayer.prepare(new ProgressiveMediaSource.Factory(new DefaultDataSourceFactory(context,
+                Util.getUserAgent(context, context.getString(R.string.app_name) + " TV")))
+                .createMediaSource(Uri.parse(isMain ? context.getSharedPreferences(context.getPackageName(), MODE_PRIVATE)
+                        .getString("StreamingUrl", stream) : "https://radiokahollavan.com/yemenstream")));
+    }
+
     private void initMediaPlayer() {
         audioManager = (AudioManager) getSystemService(AUDIO_SERVICE);
         isPlaying = new MutableLiveData<>(false);
         songTitle = new MutableLiveData<>();
         mediaPlayer = new SimpleExoPlayer.Builder(this).build();
-        mediaPlayer.prepare(new ProgressiveMediaSource.Factory(new DefaultDataSourceFactory(this, Util.getUserAgent(this, getString(R.string.app_name) + " TV"))).
-                createMediaSource(Uri.parse(getApplicationContext().getSharedPreferences(getPackageName(), MODE_PRIVATE).getString("StreamingUrl", stream))));
+        setMediaPlayerStreamingUrl(this, true);
         //mediaPlayer.setAudioAttributes(new AudioAttributes.Builder().setUsage(C.USAGE_MEDIA).setContentType(C.CONTENT_TYPE_MUSIC).build(), true);
         mediaPlayer.setWakeMode(C.WAKE_MODE_NETWORK);
         mediaSession = new MediaSessionCompat(this, getPackageName());
@@ -64,7 +71,7 @@ public class App extends Application {
         mediaSession.setFlags(MediaSessionCompat.FLAG_HANDLES_MEDIA_BUTTONS | MediaSessionCompat.FLAG_HANDLES_TRANSPORT_CONTROLS);
         mediaPlayer.addAnalyticsListener(new AnalyticsListener() {
             @Override
-            public void onMetadata(EventTime eventTime, Metadata metadata) {
+            public void onMetadata(@NonNull EventTime eventTime, @NonNull Metadata metadata) {
                 IcyInfo info = (IcyInfo) metadata.get(0);
                 songTitle.setValue(info.title);
                 mediaSession.setMetadata(new MediaMetadataCompat.Builder()
@@ -126,32 +133,6 @@ public class App extends Application {
         mediaPlayer.setPlayWhenReady(true);
     }
 
-    private void initAppInfo() {
-        FirebaseFirestore.getInstance().collection("AppInfo").get().addOnCompleteListener(task -> {
-            if (task.isSuccessful()) {
-                QuerySnapshot documentSnapshots = task.getResult();
-                if (documentSnapshots != null) {
-                    for (QueryDocumentSnapshot document : documentSnapshots) {
-                        Object updatedStreamingUrl = document.getData().get("updatedStreamingUrl");
-                        if (updatedStreamingUrl != null) {
-                            String text = (String) updatedStreamingUrl;
-                            if (!text.isEmpty()) {
-                                getSharedPreferences(getPackageName(), MODE_PRIVATE).edit().putString("StreamingUrl", text).apply();
-                            }
-                        }
-                        Object updatedRecentlyPlayedUrl = document.getData().get("updatedRecentlyPlayedUrl");
-                        if (updatedRecentlyPlayedUrl != null) {
-                            String text = (String) updatedRecentlyPlayedUrl;
-                            if (!text.isEmpty()) {
-                                getSharedPreferences(getPackageName(), MODE_PRIVATE).edit().putString("RecentlyPlayedUrl", text).apply();
-                            }
-                        }
-                    }
-                }
-            }
-        });
-    }
-
     private void initBroadcasts() {
         broadcasts = new MutableLiveData<>();
         for (String day : daysArray) {
@@ -172,5 +153,28 @@ public class App extends Application {
                 }
             });
         }
+    }
+
+    private void initAppInfo() {
+        FirebaseFirestore.getInstance().collection("AppInfo").addSnapshotListener((documentSnapshots, e) -> {
+            if (documentSnapshots != null) {
+                for (QueryDocumentSnapshot document : documentSnapshots) {
+                    Object updatedStreamingUrl = document.getData().get("updatedStreamingUrl");
+                    if (updatedStreamingUrl != null) {
+                        String text = (String) updatedStreamingUrl;
+                        if (!text.isEmpty()) {
+                            getSharedPreferences(getPackageName(), MODE_PRIVATE).edit().putString("StreamingUrl", text).apply();
+                        }
+                    }
+                    Object updatedRecentlyPlayedUrl = document.getData().get("updatedRecentlyPlayedUrl");
+                    if (updatedRecentlyPlayedUrl != null) {
+                        String text = (String) updatedRecentlyPlayedUrl;
+                        if (!text.isEmpty()) {
+                            getSharedPreferences(getPackageName(), MODE_PRIVATE).edit().putString("RecentlyPlayedUrl", text).apply();
+                        }
+                    }
+                }
+            }
+        });
     }
 }
