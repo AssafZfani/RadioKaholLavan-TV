@@ -12,7 +12,6 @@ import androidx.viewpager.widget.ViewPager;
 import java.util.Calendar;
 
 import zfani.assaf.radio_kahol_lavan_tv.R;
-import zfani.assaf.radio_kahol_lavan_tv.ui.fragments.AudioTrackerFragment;
 import zfani.assaf.radio_kahol_lavan_tv.ui.fragments.BroadcastScheduleFragment;
 import zfani.assaf.radio_kahol_lavan_tv.ui.fragments.LiveBroadcastFragment;
 
@@ -47,11 +46,11 @@ public class MainActivity extends AppCompatActivity implements View.OnFocusChang
             public Fragment getItem(int position) {
                 switch (position) {
                     case 0:
-                        return new LiveBroadcastFragment();
+                        return new LiveBroadcastFragment(true);
                     case 1:
-                        return new AudioTrackerFragment();
-                    case 2:
                         return new BroadcastScheduleFragment();
+                    case 2:
+                        return new LiveBroadcastFragment(false);
                 }
                 return new Fragment();
             }

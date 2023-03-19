@@ -24,6 +24,12 @@ import zfani.assaf.radio_kahol_lavan_tv.model.Broadcast;
 
 public class LiveBroadcastFragment extends BaseFragment {
 
+    private final boolean isMain;
+
+    public LiveBroadcastFragment(boolean isMain) {
+        this.isMain = isMain;
+    }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -46,6 +52,7 @@ public class LiveBroadcastFragment extends BaseFragment {
             });
             tvSongName.setText(song);
             tvSongName.setSelected(true);
+            broadcastViewHolder.getMainView().setVisibility(isMain ? View.VISIBLE : View.GONE);
         });
         ivPlayOrPause.setOnClickListener(v -> {
             App.isPlaying.setValue(App.isPlaying.getValue() == null || !App.isPlaying.getValue());
@@ -62,5 +69,11 @@ public class LiveBroadcastFragment extends BaseFragment {
         ivPlayOrPause.setOnKeyListener(this);
         App.isPlaying.observe(getViewLifecycleOwner(), isPlaying -> ivPlayOrPause.setImageResource(isPlaying ? R.drawable.ic_play : R.drawable.ic_pause));
         return root;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        App.setMediaPlayerStreamingUrl(getContext(), isMain);
     }
 }

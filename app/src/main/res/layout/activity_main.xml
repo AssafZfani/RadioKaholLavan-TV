@@ -36,16 +36,14 @@
             android:nextFocusRight="@id/mainTab1"
             android:nextFocusDown="@+id/lvSongList"
             android:tag="1"
-            android:text="@string/last_played" />
+            android:text="@string/broadcast_schedule" />
 
         <TextView
             android:id="@+id/mainTab3"
             style="@style/MainTab"
             android:nextFocusRight="@id/mainTab2"
             android:tag="2"
-            android:text="@string/broadcast_schedule">
-
-        </TextView>
+            android:text="@string/yemen" />
 
     </LinearLayout>
 

@@ -45,4 +45,8 @@ public class BroadcastViewHolder {
             mainView.findViewById(R.id.clContainer).setBackgroundResource(now.after(broadcast.startDate) && now.before(broadcast.endDate) ? R.drawable.bg_white : R.drawable.bg_gray);
         }
     }
+
+    public View getMainView() {
+        return mainView;
+    }
 }
