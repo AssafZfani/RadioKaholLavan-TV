@@ -42,6 +42,7 @@ public class App extends Application {
     public static MediaSessionCompat mediaSession;
     public static SimpleExoPlayer mediaPlayer;
     public static AudioManager audioManager;
+    static boolean isMain;
 
     @Override
     public void onCreate() {
@@ -52,6 +53,8 @@ public class App extends Application {
     }
 
     public static void setMediaPlayerStreamingUrl(Context context, boolean isMain) {
+        if (isMain && App.isMain) return;
+        App.isMain = isMain;
         mediaPlayer.prepare(new ProgressiveMediaSource.Factory(new DefaultDataSourceFactory(context,
                 Util.getUserAgent(context, context.getString(R.string.app_name) + " TV")))
                 .createMediaSource(Uri.parse(isMain ? context.getSharedPreferences(context.getPackageName(), MODE_PRIVATE)

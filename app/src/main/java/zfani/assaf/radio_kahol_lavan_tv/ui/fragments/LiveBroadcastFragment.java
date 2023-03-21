@@ -67,6 +67,7 @@ public class LiveBroadcastFragment extends BaseFragment {
             }
         });
         ivPlayOrPause.setOnKeyListener(this);
+        ivPlayOrPause.setNextFocusUpId(isMain ? R.id.mainTab1 : R.id.mainTab3);
         App.isPlaying.observe(getViewLifecycleOwner(), isPlaying -> ivPlayOrPause.setImageResource(isPlaying ? R.drawable.ic_play : R.drawable.ic_pause));
         return root;
     }

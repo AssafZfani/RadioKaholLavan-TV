@@ -10,7 +10,6 @@
         android:id="@+id/llBroadcastTabs"
         android:layout_width="wrap_content"
         android:layout_height="35dp"
-        android:nextFocusUp="@+id/mainTab3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -20,6 +19,7 @@
             style="@style/DayTab"
             android:nextFocusLeft="@id/tab2"
             android:nextFocusRight="@id/tab1"
+            android:nextFocusUp="@+id/mainTab2"
             android:tag="0" />
 
         <TextView
@@ -27,6 +27,7 @@
             style="@style/DayTab"
             android:nextFocusLeft="@id/tab3"
             android:nextFocusRight="@id/tab1"
+            android:nextFocusUp="@+id/mainTab2"
             android:tag="1" />
 
         <TextView
@@ -34,6 +35,7 @@
             style="@style/DayTab"
             android:nextFocusLeft="@id/tab4"
             android:nextFocusRight="@id/tab2"
+            android:nextFocusUp="@+id/mainTab2"
             android:tag="2" />
 
         <TextView
@@ -41,6 +43,7 @@
             style="@style/DayTab"
             android:nextFocusLeft="@id/tab5"
             android:nextFocusRight="@id/tab3"
+            android:nextFocusUp="@+id/mainTab2"
             android:tag="3" />
 
         <TextView
@@ -48,6 +51,7 @@
             style="@style/DayTab"
             android:nextFocusLeft="@id/tab6"
             android:nextFocusRight="@id/tab4"
+            android:nextFocusUp="@+id/mainTab2"
             android:tag="4" />
 
         <TextView
@@ -55,12 +59,14 @@
             style="@style/DayTab"
             android:nextFocusLeft="@id/tab7"
             android:nextFocusRight="@id/tab5"
+            android:nextFocusUp="@+id/mainTab2"
             android:tag="5" />
 
         <TextView
             android:id="@+id/tab7"
             style="@style/DayTab"
             android:nextFocusRight="@id/tab6"
+            android:nextFocusUp="@+id/mainTab2"
             android:tag="6" />
 
     </LinearLayout>

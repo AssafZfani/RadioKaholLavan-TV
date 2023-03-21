@@ -7,7 +7,7 @@ android {
         applicationId "radio.kahol.lavan_tv"
         minSdkVersion 21
         targetSdkVersion 33
-        versionCode 2
+        versionCode 9
         versionName "2.0"
     }
     buildTypes {
