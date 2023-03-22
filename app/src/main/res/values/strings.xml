@@ -4,6 +4,7 @@
     <string name="live_broadcast">שידור חי</string>
     <string name="broadcast_schedule">לוח שידורים</string>
     <string name="yemen">כחול לבן בתימנית</string>
+    <string name="radio_yemen">רדיו כחול לבן בתימנית</string>
     <string-array name="tab_titles">
         <item>א\'</item>
         <item>ב\'</item>

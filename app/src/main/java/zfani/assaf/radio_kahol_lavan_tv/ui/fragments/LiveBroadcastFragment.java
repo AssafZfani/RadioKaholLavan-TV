@@ -35,8 +35,10 @@ public class LiveBroadcastFragment extends BaseFragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_live_broadcast, container, false);
         TextView tvSongName = root.findViewById(R.id.tvSongName);
+        tvSongName.setText(isMain ? R.string.app_name : R.string.radio_yemen);
         ImageView ivPlayOrPause = root.findViewById(R.id.ivPlayOrPause);
         BroadcastViewHolder broadcastViewHolder = new BroadcastViewHolder(root.findViewById(R.id.vBroadcast));
+        broadcastViewHolder.getMainView().setVisibility(isMain ? View.VISIBLE : View.GONE);
         App.songTitle.observe(getViewLifecycleOwner(), song -> {
             String day = App.daysArray[Calendar.getInstance().get(Calendar.DAY_OF_WEEK) - 1];
             Date now = new Date(System.currentTimeMillis());
@@ -52,7 +54,6 @@ public class LiveBroadcastFragment extends BaseFragment {
             });
             tvSongName.setText(song);
             tvSongName.setSelected(true);
-            broadcastViewHolder.getMainView().setVisibility(isMain ? View.VISIBLE : View.GONE);
         });
         ivPlayOrPause.setOnClickListener(v -> {
             App.isPlaying.setValue(App.isPlaying.getValue() == null || !App.isPlaying.getValue());

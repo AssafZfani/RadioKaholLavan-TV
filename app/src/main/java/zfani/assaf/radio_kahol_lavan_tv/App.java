@@ -55,10 +55,12 @@ public class App extends Application {
     public static void setMediaPlayerStreamingUrl(Context context, boolean isMain) {
         if (isMain && App.isMain) return;
         App.isMain = isMain;
+        mediaPlayer.seekTo(0);
         mediaPlayer.prepare(new ProgressiveMediaSource.Factory(new DefaultDataSourceFactory(context,
                 Util.getUserAgent(context, context.getString(R.string.app_name) + " TV")))
                 .createMediaSource(Uri.parse(isMain ? context.getSharedPreferences(context.getPackageName(), MODE_PRIVATE)
                         .getString("StreamingUrl", stream) : "https://radiokahollavan.com/yemenstream")));
+        mediaPlayer.setPlayWhenReady(true);
     }
 
     private void initMediaPlayer() {
