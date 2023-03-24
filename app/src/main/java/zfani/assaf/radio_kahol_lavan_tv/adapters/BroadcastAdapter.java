@@ -31,7 +31,7 @@ public class BroadcastAdapter extends ArrayAdapter<Broadcast> {
         } else {
             viewHolder = (BroadcastViewHolder) convertView.getTag();
         }
-        viewHolder.bindData(getItem(position));
+        viewHolder.bindData(getItem(position), true);
         return convertView;
     }
 }

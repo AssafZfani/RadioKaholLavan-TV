@@ -34,7 +34,6 @@
             style="@style/MainTab"
             android:nextFocusLeft="@id/mainTab3"
             android:nextFocusRight="@id/mainTab1"
-            android:nextFocusDown="@+id/lvSongList"
             android:tag="1"
             android:text="@string/broadcast_schedule" />
 

@@ -60,7 +60,7 @@ public class App extends Application {
                 Util.getUserAgent(context, context.getString(R.string.app_name) + " TV")))
                 .createMediaSource(Uri.parse(isMain ? context.getSharedPreferences(context.getPackageName(), MODE_PRIVATE)
                         .getString("StreamingUrl", stream) : "https://radiokahollavan.com/yemenstream")));
-        mediaPlayer.setPlayWhenReady(true);
+        mediaPlayer.setPlayWhenReady(Boolean.FALSE.equals(App.isPlaying.getValue()));
     }
 
     private void initMediaPlayer() {

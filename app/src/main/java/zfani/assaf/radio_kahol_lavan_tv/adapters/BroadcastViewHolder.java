@@ -30,8 +30,8 @@ public class BroadcastViewHolder {
         ivIcon = mainView.findViewById(R.id.ivIcon);
     }
 
-    public void bindData(Broadcast broadcast) {
-        if (broadcast == null) {
+    public void bindData(Broadcast broadcast, boolean isMain) {
+        if (broadcast == null || !isMain) {
             mainView.setVisibility(View.GONE);
         } else {
             mainView.setVisibility(View.VISIBLE);

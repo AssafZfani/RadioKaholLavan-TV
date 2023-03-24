@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity implements View.OnFocusChang
         mainTab2.setOnClickListener(this);
         mainTab3.setOnClickListener(this);
 
-        mainTab3.setNextFocusDownId(getSelectedTabByDayId(Calendar.getInstance().get(Calendar.DAY_OF_WEEK) - 1));
+        mainTab2.setNextFocusDownId(getSelectedTabByDayId(Calendar.getInstance().get(Calendar.DAY_OF_WEEK) - 1));
 
         viewPager = findViewById(R.id.viewPager);
 
